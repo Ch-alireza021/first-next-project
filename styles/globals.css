@@ -18,16 +18,266 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #c0c0c0;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.btn {
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+  background-color: #03be9f;
+  border: 1px solid #03be9f;
+  border-radius: 6px;
+  color: #dafff7;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #02afa1;
+  border-color: #02afa1;
+}
+
+/* event-item.module.css */
+.item {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px 12px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: white;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; 
+}
+
+.item img {
+  width: 100%;
+  object-fit: cover;
+  height: 10rem;
+}
+
+.item .content {
+  width: 100%;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.content h2 {
+  margin: 0.5rem 0;
+
+}
+
+.date,
+.address {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.date svg,
+.address svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #666666;
+}
+
+.content time {
+  color: #666666;
+  font-weight: bold;
+}
+
+.content address {
+  margin: 0.5rem 0;
+  color: #666666;
+  white-space: pre;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.actions a {
+  display: block;
+}
+
+.actions a span {
+  vertical-align: middle;
+}
+
+.icon {
+  margin-left: 0.5rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .item {
+    flex-direction: row;
+  }
+
+  .item img {
+    width: 40%;
+    height: 14rem;
+  }
+
+  .content {
+    width: 60%;
+    padding: 0;
+    text-align: left;
+    display:flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .summary h2 {
+    margin: 1rem 0;
+   font-weight: 700;
+  }
+
+  .actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+/* ---------------------------------- */
+/* event-list */
+
+.list {
+  width: 90%;
+  max-width: 40rem;
+  margin: 5rem auto;
+}
+/* ---------------------------------- */
+/* events-search */
+
+.form {
+  margin: 2rem auto;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  background-color: white;
+  border-radius: 6px;
+  width: 90%;
+  max-width: 40rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.controls {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.control {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.control label {
+  font-weight: bold;
+}
+
+.control select {
+  font: inherit;
+  background-color: white;
+  border-radius: 6px;
+  width: 70%;
+  padding: 0.25rem;
+}
+
+.form button {
+  width: 100%;
+  font: inherit;
+  padding: 0.25rem 0.5rem;
+  background-color: #03be9f;
+  border: 1px solid #03be9f;
+  color: #dafff7;
+  border-radius: 4px;
+}
+
+@media (min-width: 768px) {
+  .form {
+    flex-direction: row;
+  }
+
+  .controls {
+    width: 80%;
+    flex-direction: row;
+  }
+
+  .control select {
+    width: 100%;
+  }
+
+  .form button {
+    width: 20%;
+  }
+}
+
+/* -------------------------- */
+/* main-header */
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1rem 10%;
+  height: 5rem;
+  background-color: #202020;
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: white;
+  font-family: "Fira", sans-serif;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #94fdfd;
+}
+
+.logo a {
+  text-decoration: none;
+  color: #94fdfd;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: #74dacc;
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    font-size: 2.5rem;
+  }
+
+  .navigation a {
+    font-size: 1.5rem;
   }
 }
