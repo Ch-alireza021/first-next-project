@@ -14,7 +14,7 @@ const EventDetailPage = () => {
   return (
     <>
       <EventSummery title={event.title} />
-      <EventLogistics date={event.date} address={event.location} Image={event.image} imageAlt={event.title} />
+      <EventLogistics date={event.date} address={event.location} image={event.image} imageAlt={event.title} />
       <EventContent>
         <p>
             {event.description}
