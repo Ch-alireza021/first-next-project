@@ -1,4 +1,5 @@
 import React, { FC, Fragment, ReactNode } from "react";
+import MainHeader from "./main-header";
 
 interface ILayout {
   children: ReactNode;
@@ -7,7 +8,8 @@ interface ILayout {
 const Layout: FC<ILayout> = ({ children }) => {
   return (
     <Fragment>
-      <main></main>
+      <MainHeader />
+      <main>{children}</main>
     </Fragment>
   );
 };
