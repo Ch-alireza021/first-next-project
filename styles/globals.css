@@ -39,7 +39,6 @@ body {
 .btn {
   text-decoration: none;
   cursor: pointer;
-  font: inherit;
   background-color: #03be9f;
   border: 1px solid #03be9f;
   border-radius: 6px;
