@@ -39,7 +39,19 @@ export function getAllEvents() {
   return DUMMY_EVENTS;
 }
 
-export function getFilteredEvents(dateFilter: { year: any; month: any }) {
+interface Event {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  date: string;
+  image: string;
+  isFeatured: boolean;
+}
+
+type FilteredEvents = Event[]; 
+
+export function getFilteredEvents(dateFilter: { year: number; month: number }):FilteredEvents {
   const { year, month } = dateFilter;
 
   let filteredEvents = DUMMY_EVENTS.filter((event) => {

@@ -4,13 +4,20 @@ import React, { FC, ReactNode } from "react";
 interface IButton {
   link: string;
   children: ReactNode;
+  onClick:()=>void
 }
 
-const Button: FC<IButton> = ({ link, children }) => {
+const Button: FC<IButton> = ({ link, children ,onClick:propsOnClick}) => {
   return (
-    <Link href={link}>
-      <span className="btn">{children}</span>
-    </Link>
+    <>
+      {link ? (
+        <Link href={link}>
+          <span className="btn">{children}</span>
+        </Link>
+      ) : (
+        <button  className="btn w-fit" onClick={propsOnClick}> {children}</button>
+      )}
+    </>
   );
 };
 
