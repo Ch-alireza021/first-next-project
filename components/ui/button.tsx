@@ -2,20 +2,28 @@ import Link from "next/link";
 import React, { FC, ReactNode } from "react";
 
 interface IButton {
-  link: string;
+  link?: string;
   children: ReactNode;
-  onClick:()=>void
+  onClick?: () => void;
+  styles?: string | undefined;
 }
 
-const Button: FC<IButton> = ({ link, children ,onClick:propsOnClick}) => {
+const Button: FC<IButton> = ({
+  link,
+  children,
+  styles,
+  onClick: propsOnClick,
+}) => {
   return (
     <>
       {link ? (
         <Link href={link}>
-          <span className="btn">{children}</span>
+          <span className={`btn text-inherit ${styles}`}>{children}</span>
         </Link>
       ) : (
-        <button  className="btn w-fit" onClick={propsOnClick}> {children}</button>
+        <button className={`btn w-fit  text-inherit ${styles}`} onClick={propsOnClick}>
+          {children}
+        </button>
       )}
     </>
   );

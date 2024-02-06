@@ -8,6 +8,7 @@ import React from "react";
 const FilteredEventsPage = () => {
   const router = useRouter();
   const filterData = router.query.slug;
+  const allEventsPath = "/events";
   if (!filterData) return <ShowDetails>LOADING ...</ShowDetails>;
   const year = +filterData[0];
   const month = +filterData[1];
@@ -19,12 +20,16 @@ const FilteredEventsPage = () => {
     month < 1 ||
     month > 12
   ) {
-    return <ShowDetails> Invalid filter </ShowDetails>;
+    return <ShowDetails link={allEventsPath}> Invalid filter </ShowDetails>;
   }
-  console.log(filterData);
+
   const filterEvents = getFilteredEvents({ year, month });
   if (!filterEvents || filterEvents.length === 0) {
-    return <ShowDetails> No events found for the chosen filter</ShowDetails>;
+    return (
+      <ShowDetails link={allEventsPath}>
+        No events found for the chosen filter
+      </ShowDetails>
+    );
   }
   const date = new Date(year, month - 1);
 
