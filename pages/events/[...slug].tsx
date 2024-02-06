@@ -1,4 +1,5 @@
 import EventList from "@/components/events/event-list";
+import ResultsTitle from "@/components/events/event-title";
 import { getFilteredEvents } from "@/dummy-data";
 import { useRouter } from "next/router";
 import React from "react";
@@ -29,9 +30,12 @@ const FilteredEventsPage = () => {
       </div>
     );
   }
+  const date=new Date(year,month-1);
+  console.log(date);
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
+      <ResultsTitle date={date}/>
       <EventList items={filterEvents} />
     </div>
   );
