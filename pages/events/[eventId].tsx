@@ -4,12 +4,13 @@ import React from "react";
 import EventSummery from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content"
+import ShowDetails from "@/components/events/event-showDetails";
 
 const EventDetailPage = () => {
   const router = useRouter();
   const eventId = router.query.eventId;
   const event = getEventById(eventId);
-  if (!event) return <div> No event found </div>;
+  if (!event) return <ShowDetails link="/events">No event found</ShowDetails>;
 
   return (
     <>
