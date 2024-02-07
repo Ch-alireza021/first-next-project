@@ -1,13 +1,16 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  name: string;
-};
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>,
-) {
-  res.status(200).json({ name: "John Doe" });
+export interface Event {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  date: string;
+  image: string;
+  isFeatured: boolean;
 }
+
+
+const BASE_URL = "https://events-52ae0-default-rtdb.firebaseio.com/";
+
+
