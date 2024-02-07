@@ -1,5 +1,3 @@
-
-
 export interface Event {
   id: string;
   title: string;
@@ -10,21 +8,24 @@ export interface Event {
   isFeatured: boolean;
 }
 
-
 const BASE_URL = "https://events-52ae0-default-rtdb.firebaseio.com/";
-
 
 export const getAllEvents = async () => {
   const response = await fetch(`${BASE_URL}/events.json`);
   const data = await response.json();
-  let events:Event[] = [];
+  let events: Event[] = [];
   for (const key in data) {
     events.push({ id: key, ...data[key] });
   }
-  return events
+  return events;
 };
 
-export const getFeaturedEvents=async()=>{
-  const allEvents=await getAllEvents();
+export const getFeaturedEvents = async () => {
+  const allEvents = await getAllEvents();
   return allEvents.filter((event) => event.isFeatured);
-}
+};
+
+export const getEventById = async (id: string | undefined) => {
+  const allEvents = await getAllEvents();
+  return allEvents.find((event) => event.id === id);
+};
