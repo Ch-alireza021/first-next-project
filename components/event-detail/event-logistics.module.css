@@ -3,7 +3,7 @@
   border-radius: 6px;
   background-color: #2b2b2b;
   padding: 2rem;
-  max-width: 50rem;
+  max-width: 40rem;
   width: 80%;
   margin: -4vh auto;
   color: #d5eeeb;
@@ -51,8 +51,8 @@
   }
 
   .image {
-    width: 20rem;
-    height: 20rem;
+    width: 15rem;
+    height: 15rem;
   }
 
   .image img {
