@@ -1,15 +1,38 @@
 import EventList from "@/components/events/event-list";
 import ShowDetails from "@/components/events/event-showDetails";
 import ResultsTitle from "@/components/events/event-title";
-import { getFilteredEvents } from "@/dummy-data";
-import { useRouter } from "next/router";
-import React from "react";
+import React, { FC } from "react";
+import { Event, getFilteredEvents } from "../api/api";
 
-const FilteredEventsPage = () => {
-  const router = useRouter();
-  const filterData = router.query.slug;
+interface IFilteredEventsPage {
+  hasError?: boolean;
+  events: Event[];
+  year: number;
+  month: number;
+}
+
+const FilteredEventsPage: FC<IFilteredEventsPage> = (props) => {
+  
   const allEventsPath = "/events";
-  if (!filterData) return <ShowDetails>LOADING ...</ShowDetails>;
+  if (props.hasError) {
+    return <ShowDetails link={allEventsPath}> Invalid filter </ShowDetails>;
+  }
+
+  const date = new Date(props.year, props.month - 1);
+
+  return (
+    <div className="flex flex-col items-center">
+      <ResultsTitle date={date} />
+      <EventList items={props.events} />
+    </div>
+  );
+};
+
+export const getServerSideProps = async (context: {
+  params: { slug: string[] };
+}) => {
+  const { params } = context;
+  const filterData = params.slug;
   const year = +filterData[0];
   const month = +filterData[1];
   if (
@@ -20,25 +43,28 @@ const FilteredEventsPage = () => {
     month < 1 ||
     month > 12
   ) {
-    return <ShowDetails link={allEventsPath}> Invalid filter </ShowDetails>;
-  }
+    return {
+      props: {
+        hasError: true,
+      },
 
-  const filterEvents = getFilteredEvents({ year, month });
-  if (!filterEvents || filterEvents.length === 0) {
-    return (
-      <ShowDetails link={allEventsPath}>
-        No events found for the chosen filter
-      </ShowDetails>
-    );
-  }
-  const date = new Date(year, month - 1);
+      // go to 404 page
+      // notFound:true,
 
-  return (
-    <div className="flex flex-col items-center">
-      <ResultsTitle date={date} />
-      <EventList items={filterEvents} />
-    </div>
-  );
+      // redirect to custom 404 page
+      // redirect:{
+      //   destination:"error"
+      // }
+    };
+  }
+  const filterEvents = await getFilteredEvents({ year, month });
+  return {
+    props: {
+      events: filterEvents,
+      year,
+      month,
+    },
+  };
 };
 
 export default FilteredEventsPage;
