@@ -8,7 +8,7 @@ import {
   getAllEvents,
   getEventById,
   getFeaturedEvents,
-} from "../api/hello";
+} from "../api/api";
 
 const EventDetailPage = (props: { selectedEvent: Event | undefined }) => {
   // -------------------------------------
@@ -56,7 +56,7 @@ export const getStaticPaths = async () => {
     fallback: true,
     // fallback: "block",
   };
-  revalidate:30
+  revalidate: 30;
 };
 
 export default EventDetailPage;
