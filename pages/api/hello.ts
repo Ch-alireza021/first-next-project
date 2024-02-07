@@ -14,3 +14,15 @@ export interface Event {
 const BASE_URL = "https://events-52ae0-default-rtdb.firebaseio.com/";
 
 
+export const getAllEvents = async () => {
+  const response = await fetch(`${BASE_URL}/events.json`);
+  const data = await response.json();
+  let events:Event[] = [];
+  for (const key in data) {
+    events.push({ id: key, ...data[key] });
+  }
+  return events
+};
+
+
+
