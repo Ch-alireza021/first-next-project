@@ -1,19 +1,23 @@
-
 import React from "react";
 import EventSummery from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventContent from "../../components/event-detail/event-content";
 import ShowDetails from "@/components/events/event-showDetails";
-import { Event, getAllEvents, getEventById } from "../api/hello";
+import {
+  Event,
+  getAllEvents,
+  getEventById,
+  getFeaturedEvents,
+} from "../api/hello";
 
-const EventDetailPage = (props: { selectedEvent: Event |undefined}) => {
+const EventDetailPage = (props: { selectedEvent: Event | undefined }) => {
   // -------------------------------------
   // data fetching dosent happen in this component and we dont need it
   // const router = useRouter();
   // const eventId = router.query.eventId;
   // -------------------------------------
   const event = props.selectedEvent;
-  if (!event) return <ShowDetails link="/events">No event found</ShowDetails>;
+  if (!event) return <ShowDetails>Loading...</ShowDetails>;
 
   return (
     <>
@@ -31,27 +35,28 @@ const EventDetailPage = (props: { selectedEvent: Event |undefined}) => {
   );
 };
 
-
-
- export const getStaticProps = async (context: { params: { eventId: string } }) => {
+export const getStaticProps = async (context: {
+  params: { eventId: string };
+}) => {
   const eventId = context.params.eventId;
-  const event =await getEventById(eventId);
+  const event = await getEventById(eventId);
   return {
-    props:{
-      selectedEvent:event
-    }
+    props: {
+      selectedEvent: event,
+    },
   };
 };
 
 export const getStaticPaths = async () => {
-  const allEvents = await getAllEvents();
+  const allEvents = await getFeaturedEvents();
   const paths = allEvents.map((event) => ({ params: { eventId: event.id } }));
   console.log(paths);
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
+    // fallback: "block",
   };
+  revalidate:30
 };
-
 
 export default EventDetailPage;
