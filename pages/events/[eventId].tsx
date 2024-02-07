@@ -1,28 +1,57 @@
-import { getEventById } from "@/dummy-data";
-import { useRouter } from "next/router";
+
 import React from "react";
 import EventSummery from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
-import EventContent from "../../components/event-detail/event-content"
+import EventContent from "../../components/event-detail/event-content";
 import ShowDetails from "@/components/events/event-showDetails";
+import { Event, getAllEvents, getEventById } from "../api/hello";
 
-const EventDetailPage = () => {
-  const router = useRouter();
-  const eventId = router.query.eventId;
-  const event = getEventById(eventId);
+const EventDetailPage = (props: { selectedEvent: Event |undefined}) => {
+  // -------------------------------------
+  // data fetching dosent happen in this component and we dont need it
+  // const router = useRouter();
+  // const eventId = router.query.eventId;
+  // -------------------------------------
+  const event = props.selectedEvent;
   if (!event) return <ShowDetails link="/events">No event found</ShowDetails>;
 
   return (
     <>
       <EventSummery title={event.title} />
-      <EventLogistics date={event.date} address={event.location} image={event.image} imageAlt={event.title} />
+      <EventLogistics
+        date={event.date}
+        address={event.location}
+        image={event.image}
+        imageAlt={event.title}
+      />
       <EventContent>
-        <p>
-            {event.description}
-        </p>
+        <p>{event.description}</p>
       </EventContent>
     </>
-  ); 
+  );
 };
+
+
+
+ export const getStaticProps = async (context: { params: { eventId: string } }) => {
+  const eventId = context.params.eventId;
+  const event =await getEventById(eventId);
+  return {
+    props:{
+      selectedEvent:event
+    }
+  };
+};
+
+export const getStaticPaths = async () => {
+  const allEvents = await getAllEvents();
+  const paths = allEvents.map((event) => ({ params: { eventId: event.id } }));
+  console.log(paths);
+  return {
+    paths: paths,
+    fallback: false,
+  };
+};
+
 
 export default EventDetailPage;
