@@ -9,6 +9,7 @@ import {
   getEventById,
   getFeaturedEvents,
 } from "../api/api";
+import Head from "next/head";
 
 const EventDetailPage = (props: { selectedEvent: Event | undefined }) => {
   // -------------------------------------
@@ -21,6 +22,10 @@ const EventDetailPage = (props: { selectedEvent: Event | undefined }) => {
 
   return (
     <>
+      <Head>
+        <title>{event.title}</title>
+        <meta name="description" content={event.description} />
+      </Head>
       <EventSummery title={event.title} />
       <EventLogistics
         date={event.date}
