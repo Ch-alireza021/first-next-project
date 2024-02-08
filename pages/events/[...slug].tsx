@@ -3,6 +3,7 @@ import ShowDetails from "@/components/events/event-showDetails";
 import ResultsTitle from "@/components/events/event-title";
 import React, { FC } from "react";
 import { Event, getFilteredEvents } from "../api/api";
+import Head from "next/head";
 
 interface IFilteredEventsPage {
   hasError?: boolean;
@@ -22,6 +23,12 @@ const FilteredEventsPage: FC<IFilteredEventsPage> = (props) => {
 
   return (
     <div className="flex flex-col items-center">
+       <Head>
+        <title>
+          Filtered Events
+        </title>
+        <meta name="description" content={`All events for ${props.month}/${props.year}`} />
+      </Head>
       <ResultsTitle date={date} />
       <EventList items={props.events} />
     </div>
